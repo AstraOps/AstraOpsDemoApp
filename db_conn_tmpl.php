@@ -1,6 +1,7 @@
 <?php 
 
 $DBHOST = "localhost";
+$DBPORT = 5678;
 $USERNAME = "root";
 $PASSWORD = "";
 $DBNAME = "to_do_list";
