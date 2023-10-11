@@ -43,7 +43,8 @@ psql -h $HOST -p $PORT -U $USER -w $DB -f DB__to_do_list.sql
 
 FILE="db_conn.php"
 cp db_conn_tmpl.php $FILE
-sed  -i -E 's/^(\$DBHOST)\s*=.*/\1 = '"\"$HOST\""';/g' $FILE
-sed  -i -E 's/^(\$DBNAME)\s*=.*/\1 = '"\"$DB\""';/g' $FILE
-sed  -i -E 's/^(\$USERNAME)\s*=.*/\1 = '"\"$USER\""';/g' $FILE
-sed  -i -E 's/^(\$PASSWORD)\s*=.*/\1 = '"\"$PASSWD\""';/g' $FILE
+sed  -i -E 's/^(\$host)\s*=.*/\1 = '"\"$HOST\""';/g' $FILE
+sed  -i -E 's/^(\$port)\s*=.*/\1 = '"\"$PORT\""';/g' $FILE
+sed  -i -E 's/^(\$dbname)\s*=.*/\1 = '"\"$DB\""';/g' $FILE
+sed  -i -E 's/^(\$user)\s*=.*/\1 = '"\"$USER\""';/g' $FILE
+sed  -i -E 's/^(\$password)\s*=.*/\1 = '"\"$PASSWD\""';/g' $FILE
