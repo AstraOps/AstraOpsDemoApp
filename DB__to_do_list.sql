@@ -2,10 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.0
--- Dumped by pg_dump version 16.0
-
--- Started on 2023-10-11 10:16:49 IST
+-- Dumped from database version 12.16 (Debian 12.16-1.pgdg120+1)
+-- Dumped by pg_dump version 14.9 (Ubuntu 14.9-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +21,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 215 (class 1259 OID 16404)
 -- Name: todos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -36,26 +33,22 @@ CREATE TABLE public.todos (
 ALTER TABLE public.todos OWNER TO postgres;
 
 --
--- TOC entry 3587 (class 0 OID 16404)
--- Dependencies: 215
 -- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.todos (id, title) FROM stdin;
-1	abc
+1	Buy Vegetables
+2	Wake up @ 6 AM
 \.
 
 
 --
--- TOC entry 3443 (class 2606 OID 16410)
 -- Name: todos todos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.todos
     ADD CONSTRAINT todos_pkey PRIMARY KEY (id);
 
-
--- Completed on 2023-10-11 10:16:49 IST
 
 --
 -- PostgreSQL database dump complete
