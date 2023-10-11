@@ -1,61 +1,63 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 01, 2020 at 06:55 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `to_do_list`
+-- PostgreSQL database dump
 --
 
--- --------------------------------------------------------
+-- Dumped from database version 16.0
+-- Dumped by pg_dump version 16.0
+
+-- Started on 2023-10-11 10:16:49 IST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
 
 --
--- Table structure for table `todos`
+-- TOC entry 215 (class 1259 OID 16404)
+-- Name: todos; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE `todos` (
-  `id` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `date_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `checked` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE public.todos (
+    id integer NOT NULL,
+    title text
+);
+
+
+ALTER TABLE public.todos OWNER TO postgres;
 
 --
--- Indexes for dumped tables
+-- TOC entry 3587 (class 0 OID 16404)
+-- Dependencies: 215
+-- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
---
--- Indexes for table `todos`
---
-ALTER TABLE `todos`
-  ADD PRIMARY KEY (`id`);
+COPY public.todos (id, title) FROM stdin;
+1	abc
+\.
+
 
 --
--- AUTO_INCREMENT for dumped tables
+-- TOC entry 3443 (class 2606 OID 16410)
+-- Name: todos todos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
---
--- AUTO_INCREMENT for table `todos`
---
-ALTER TABLE `todos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-COMMIT;
+ALTER TABLE ONLY public.todos
+    ADD CONSTRAINT todos_pkey PRIMARY KEY (id);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Completed on 2023-10-11 10:16:49 IST
+
+--
+-- PostgreSQL database dump complete
+--
+
