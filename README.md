@@ -26,4 +26,12 @@ Verifies DB
 Dumps SQL Data
 Creates db_conn.php from template, db_conn_tmpl.php. DB Details would be available for AstraOps Core JSON client file. Ensure, RDS is created before EC2.
 
+* Clone this repository and rename the file index.php to info.php and move to the location var/www/html
+* give full permission to the info.php file by using the command "chmod 777"
+* Write a new file named php.conf in nginx. The file path is etc/nignx/sites-enabled
+* Write the required contents inside php.conf
+* Set syntax to the file php.conf using the command "sudo nginx -t"
+* Reloaad nginx using the command "sudo systemctl reload nginx"
+* Now the nginx listens to port 80
+
 
