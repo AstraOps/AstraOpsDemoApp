@@ -8,7 +8,8 @@ PASSWD=$4
 DB=$5
 
 echo "Installing dependencies, Postgres client binaries.."
-apt-get install postgresql-client-common
+apt-get update
+apt-get install nginx php-fpm postgresql-client-common
 
 echo "Checking connectivity to $HOST:$PORT.."
 pg_isready  -h $HOST -p $PORT
@@ -23,11 +24,11 @@ fi
 export PGPASSWORD=$PASSWD
 echo "Listing Available Databases.."
 psql -h $HOST -p $PORT -U $USER -w -lq
-#psql -h $HOST -p $PORT -U $USER  -w  -XAc "SELECT * FROM pg_database"
 
 if psql -h $HOST -p $PORT -U $USER -w -lqt | cut -d \| -f 1 | grep -qw $DB; then
     # $? is 0, Database Exists
     echo "Database \"$DB\" already exists,dropping the database"
+    #psql -h $HOST -p $PORT -U $USER  -w  -XAc "ALTER TABLE ONLY public.todos DROP CONSTRAINT todos_pkey;"
     dropdb -h $HOST -p $PORT -U $USER -w $DB 
     echo "Database \"$DB\" dropped"
     echo "#########################################"
