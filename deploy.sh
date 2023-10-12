@@ -8,12 +8,16 @@ PASSWD=$4
 DB=$5
 ASTRAOPSUSER=$6
 ASTRAOPSPROJECT=$7
+NGINX_VERSION=$8
 
-
-echo "Installing dependencies, Postgres client binaries.."
-apt-get update
-apt-get install nginx php-fpm php-pgsql postgresql-client-common php -y
-
+apt install -y php-fpm php-pgsql postgresql-client-common php
+apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+apt update -y
+apt install nginx="$NGINX_VERSION-1~`cat /etc/os-release | grep -i version_codename| cut -d "=" -f2`"
 echo "Checking connectivity to $HOST:$PORT.."
 pg_isready  -h $HOST -p $PORT
 if pg_isready  -h $HOST -p $PORT -q; then
