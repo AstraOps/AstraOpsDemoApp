@@ -10,7 +10,16 @@ ASTRAOPSUSER=$6
 ASTRAOPSPROJECT=$7
 NGINX_VERSION=$8
 
-apt install -y php-fpm php-pgsql postgresql-client-common php
+echo "HOST = $HOST"
+echo "PORT = $PORT"
+echo "USER = $USER"
+echo "PASSWD = $PASSWD"
+echo "DB = $DB"
+echo "ASTRAOPSUSER = $ASTRAOPSUSER"
+echo "ASTRAOPSPROJECT = $ASTRAOPSPROJECT"
+echo "NGINX_VERSION = $NGINX_VERSION"
+
+apt install -y php-fpm php-pgsql postgresql-client postgresql-client-common php
 apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
 curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
@@ -62,13 +71,14 @@ sed  -i -E 's/\$astraopsuser\$/'"$ASTRAOPSUSER"'/g' index.html
 sed  -i -E 's/\$astraopsproject\$/'"$ASTRAOPSPROJECT"'/g' index.html
 
 
-systemctl status php8.1-fpm.service
-status=`systemctl status php8.1-fpm.service| grep Loaded| cut -d " " -f7`; 
-if [ $status == "masked" ]; then systemctl unmask php8.1-fpm.service && systemctl start php8.1-fpm.service && echo "PHP Service Unmasked & Started";else systemctl start php8.1-fpm.service; fi
+# systemctl status php8.1-fpm.service
+# status=`systemctl status php8.1-fpm.service| grep Loaded| cut -d " " -f7`; 
+# if [ $status == "masked" ]; then systemctl unmask php8.1-fpm.service && systemctl start php8.1-fpm.service && echo "PHP Service Unmasked & Started";else systemctl start php8.1-fpm.service; fi
+systemctl unmask php8.1-fpm.service && systemctl start php8.1-fpm.service && echo "PHP Service Unmasked & Started"
 sudo systemctl enable php8.1-fpm.service
-
+cp index-tmpl.html /var/www/html/info.php
 #provide the full permission to info.php
-chmod 777 /var/www/html/app.php 
+chmod 777 /var/www/html/info.php 
 #backup the defalut file 
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_bck
 cp demo-nginx.conf /etc/nginx/sites-available/default

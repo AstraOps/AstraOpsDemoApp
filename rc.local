@@ -1,1 +1,8 @@
-git clone https://github.com/AstraOps/AstraOpsDemoApp.git
+
+if [ ! -d "/root/AstraOpsDemoApp" ]; then
+    git clone https://github.com/AstraOps/AstraOpsDemoApp.git;
+fi
+cd AstraOpsDemoApp
+git pull                                            
+chmod +x deploy.sh
+./deploy.sh host port masterusername masterpassword dbname astraopsuser astraopsproject nginxversion
