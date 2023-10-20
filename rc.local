@@ -5,4 +5,8 @@ fi
 cd AstraOpsDemoApp
 git pull                                            
 chmod +x deploy.sh
-./deploy.sh host port masterusername masterpassword dbname astraopsuser astraopsproject nginxversion
+cat /etc/rc.local
+TAG1 = host
+TAG2 = $host
+echo "$TAG1 , $TAG2"
+./deploy.sh $host $port $masterusername $masterpassword $dbname $astraopsuser $astraopsproject $nginxversion
