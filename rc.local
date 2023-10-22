@@ -1,12 +1,9 @@
 
-if [ ! -d "/root/AstraOpsDemoApp" ]; then
-    git clone https://github.com/AstraOps/AstraOpsDemoApp.git;
+echo "host=$1 port=$2 masterusername=$3 masterpassword=$4 dbname=$5 astraopsuser=$6 astraopsproject=$7 nginxversion=$8"
+if [ ! -d "~/AstraOpsDemoApp" ]; then
+    git clone https://github.com/AstraOps/AstraOpsDemoApp.git AstraOpsDemoApp;
 fi
 cd AstraOpsDemoApp
 git pull                                            
 chmod +x deploy.sh
-cat /etc/rc.local
-TAG1 = host
-TAG2 = $host
-echo "$TAG1 , $TAG2"
-./deploy.sh $host $port $masterusername $masterpassword $dbname $astraopsuser $astraopsproject $nginxversion
+./deploy.sh $1 $2 $3 $4 $5 $6 $7 $8
