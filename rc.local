@@ -1,9 +1,24 @@
-
-echo "host=$1 port=$2 masterusername=$3 masterpassword=$4 dbname=$5 astraopsuser=$6 astraopsproject=$7 nginxversion=$8"
+#Variable Assignment will be done through UserData Script
+echo "host=$host"
+echo "port=$port" 
+echo "masterusername=$masterusername"
+echo "masterpassword=$masterpassword" 
+echo "dbname=$dbname" 
+echo "astraopsuser=$astraopsuser" 
+echo "astraopsproject=$astraopsproject" 
+echo "nginxversion=$nginxversion" 
 if [ ! -d "~/AstraOpsDemoApp" ]; then
     git clone https://github.com/AstraOps/AstraOpsDemoApp.git AstraOpsDemoApp;
 fi
 cd AstraOpsDemoApp
 git pull                                            
 chmod +x deploy.sh
-./deploy.sh $1 $2 $3 $4 $5 $6 $7 $8
+# HOST=$1
+# PORT=$2
+# USER=$3
+# PASSWD=$4
+# DB=$5
+# ASTRAOPSUSER=$6
+# ASTRAOPSPROJECT=$7
+# NGINX_VERSION=$8
+./deploy.sh $host $port $masterusername $masterpassword $dbname $astraopsuser $astraopsproject $nginxversion
