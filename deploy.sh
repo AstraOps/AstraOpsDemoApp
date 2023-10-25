@@ -1,7 +1,7 @@
 #!/bin/bash 
 set -x
 
-apt install -y openssh-server
+apt install -y openssh-server net-tools
 apt list --installed | grep -i openssh
 netstat -tpln | grep 22
 systemctl status ssh
