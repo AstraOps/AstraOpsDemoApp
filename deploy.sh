@@ -1,5 +1,5 @@
 #!/bin/bash 
-
+set -x
 
 HOST=$1
 PORT=$2
