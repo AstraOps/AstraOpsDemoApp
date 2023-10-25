@@ -44,6 +44,15 @@ else
   exit 0
 fi
 
+echo "Checking Nginx configuration"
+ls -altr /etc/nginx/
+ls -altr /etc/nginx/sites-enabled/
+ls -altr /etc/nginx/sites-available/
+ls -ltra /etc/nginx/conf.d
+cat /etc/nginx/conf.d/default.conf
+
+
+
 
 export PGPASSWORD=$PASSWD
 echo "Listing Available Databases.."
