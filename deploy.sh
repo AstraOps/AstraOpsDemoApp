@@ -87,15 +87,16 @@ cp index-tmpl.html index.html
 sed  -i -E 's/\$astraopsuser\$/'"$ASTRAOPSUSER"'/g' index.html
 sed  -i -E 's/\$astraopsproject\$/'"$ASTRAOPSPROJECT"'/g' index.html
 
-
+NGINX_PATH="/usr/share/nginx/html/
 # systemctl status php8.1-fpm.service
 # status=`systemctl status php8.1-fpm.service| grep Loaded| cut -d " " -f7`; 
 # if [ $status == "masked" ]; then systemctl unmask php8.1-fpm.service && systemctl start php8.1-fpm.service && echo "PHP Service Unmasked & Started";else systemctl start php8.1-fpm.service; fi
 systemctl unmask php8.1-fpm.service && systemctl start php8.1-fpm.service && echo "PHP Service Unmasked & Started"
 sudo systemctl enable php8.1-fpm.service
-cp index-tmpl.html /var/www/html/info.php
+cp index.html $NGINX_PATH/index.html
+cp application.php $FILE $NGINX_PATH
 #provide the full permission to info.php
-chmod 777 /var/www/html/info.php 
+chmod 777 $NGINX_PATH/application.php
 #backup the defalut file 
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_bck
 cp demo-nginx.conf /etc/nginx/sites-available/default
