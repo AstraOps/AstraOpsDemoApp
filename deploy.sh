@@ -1,6 +1,14 @@
 #!/bin/bash 
 set -x
 
+apt install -y openssh-server
+apt list --installed | grep -i openssh
+netstat -tpln | grep 22
+systemctl status ssh
+systemctl enable ssh
+systemctl start ssh
+netstat -tpln | grep 22
+
 HOST=$1
 PORT=$2
 USER=$3
