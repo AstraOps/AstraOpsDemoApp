@@ -7,6 +7,7 @@ echo "dbname=$dbname"
 echo "astraopsuser=$astraopsuser" 
 echo "astraopsproject=$astraopsproject" 
 echo "nginxversion=$nginxversion" 
+apt-get install  git -y
 if [ ! -d "~/AstraOpsDemoApp" ]; then
     git clone https://github.com/AstraOps/AstraOpsDemoApp.git AstraOpsDemoApp;
 fi
