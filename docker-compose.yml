@@ -1,0 +1,10 @@
+   container_name: metabase
+   image: metabase/metabase:latest
+   ports:
+     - "3000:3000"
+   environment:
+      - DB_HOST=database-1.ct6mijknrhpv.us-east-1.rds.amazonaws.com
+      - DB_PORT=5432  # Replace with your RDS port
+      - DB_USER=postgres
+      - DB_PASSWORD=test1234
+      - DB_NAME=metabase
