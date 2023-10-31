@@ -35,14 +35,6 @@ else
   exit 0
 fi
 
-echo "Checking Nginx configuration"
-ls -altr /etc/nginx/
-ls -altr /etc/nginx/sites-enabled/
-ls -altr /etc/nginx/sites-available/
-ls -ltra /etc/nginx/conf.d
-cat /etc/nginx/conf.d/default.conf
-
-
 export PGPASSWORD=$PASSWD
 echo "Listing Available Databases.."
 psql -h $HOST -p $PORT -U $USER -w -lq
@@ -71,11 +63,23 @@ sed  -i -E 's/^(\$PORT)\s*=.*/\1 = '"\"$PORT\""';/g' $FILE
 sed  -i -E 's/^(\$DBNAME)\s*=.*/\1 = '"\"$DB\""';/g' $FILE
 sed  -i -E 's/^(\$USER)\s*=.*/\1 = '"\"$USER\""';/g' $FILE
 sed  -i -E 's/^(\$PASSWORD)\s*=.*/\1 = '"\"$PASSWD\""';/g' $FILE
+echo "Install docker and run compose"
+apt-get -y install docker docker-compose
+docker-compose up -d
 
-NGINX_PATH="/usr/share/nginx/html/
+#Not used
+NGINX_PATH="/usr/share/nginx/html/ 
+
+echo "Checking Nginx configuration"
+ls -altr /etc/nginx/
+ls -altr /etc/nginx/sites-enabled/
+ls -altr /etc/nginx/sites-available/
+ls -ltra /etc/nginx/conf.d
+cat /etc/nginx/conf.d/default.conf
+
 #backup the default file 
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_bck
-cp demo-nginx.conf /etc/nginx/sites-available/default
+cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+cp demo-nginx.conf /etc/nginx/sites-enabled/
 
 #check the syntax 
 sudo nginx -t
