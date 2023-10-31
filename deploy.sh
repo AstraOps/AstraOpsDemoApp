@@ -22,7 +22,7 @@ echo "NGINX_VERSION = $NGINX_VERSION"
 
 echo "Configuring /etc/hosts file"
 cat /etc/hosts
-echo "$HOST $1" >> /etc/hosts
+echo "$1 $HOST" >> /etc/hosts
 cat /etc/hosts
 
 apt install -y postgresql-client postgresql-client-common
