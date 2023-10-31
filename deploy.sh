@@ -1,6 +1,7 @@
 #!/bin/bash 
 set -x
-HOST=$1
+HOST=db.astraops.com
+H=$1
 PORT=$2
 USER=$3
 PASSWD=$4
@@ -10,6 +11,7 @@ ASTRAOPSPROJECT=$7
 NGINX_VERSION=$8
 
 echo "HOST = $HOST"
+echo "H = $H"
 echo "PORT = $PORT"
 echo "USER = $USER"
 echo "PASSWD = $PASSWD"
@@ -17,6 +19,11 @@ echo "DB = $DB"
 echo "ASTRAOPSUSER = $ASTRAOPSUSER"
 echo "ASTRAOPSPROJECT = $ASTRAOPSPROJECT"
 echo "NGINX_VERSION = $NGINX_VERSION"
+
+echo "Configuring /etc/hosts file"
+cat /etc/hosts
+echo "$HOST $1" >> /etc/hosts
+cat /etc/hosts
 
 apt install -y postgresql-client postgresql-client-common
 apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
