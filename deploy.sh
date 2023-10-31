@@ -79,10 +79,11 @@ echo \
   tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt-get update
 
-apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+apt-get install lsof
 
 docker-compose up -d
+lsof -i:3000
 
 #Not used
 NGINX_PATH="/usr/share/nginx/html/ 
@@ -99,8 +100,8 @@ cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 cp demo-nginx.conf /etc/nginx/sites-enabled/
 
 #check the syntax 
-sudo nginx -t
+nginx -t
 #reload the nginx
-sudo systemctl reload nginx
+systemctl reload nginx
 
 
