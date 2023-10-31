@@ -97,8 +97,10 @@ ls -ltra /etc/nginx/conf.d
 cat /etc/nginx/conf.d/default.conf
 
 #backup the default file 
-cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
-cp demo-nginx.conf /etc/nginx/sites-enabled/
+# cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
+# cp demo-nginx.conf /etc/nginx/sites-enabled/
+rm /etc/nginx/conf.d/default.conf
+cp demo-nginx.conf /etc/nginx/conf.d/
 
 #check the syntax 
 nginx -t
