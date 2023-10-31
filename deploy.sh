@@ -58,11 +58,11 @@ psql -h $HOST -p $PORT -U $USER -w -lq
 
 FILE="docker-compose.yml"
 cp docker-compose-template.yml $FILE
-sed  -i -E 's/^(\$HOST)\s*=.*/\1 = '"\"$HOST\""';/g' $FILE
-sed  -i -E 's/^(\$PORT)\s*=.*/\1 = '"\"$PORT\""';/g' $FILE
-sed  -i -E 's/^(\$DBNAME)\s*=.*/\1 = '"\"$DB\""';/g' $FILE
-sed  -i -E 's/^(\$USER)\s*=.*/\1 = '"\"$USER\""';/g' $FILE
-sed  -i -E 's/^(\$PASSWORD)\s*=.*/\1 = '"\"$PASSWD\""';/g' $FILE
+sed -i -E "s/^\$HOST\s*=.*/\$HOST = \"$HOST\";/g" $FILE
+sed -i -E "s/^\$PORT\s*=.*/\$PORT = \"$PORT\";/g" $FILE
+sed -i -E "s/^\$DBNAME\s*=.*/\$DBNAME = \"$DB\";/g" $FILE
+sed -i -E "s/^\$USER\s*=.*/\$USER = \"$USER\";/g" $FILE
+sed -i -E "s/^\$PASSWORD\s*=.*/\$PASSWORD = \"$PASSWD\";/g" $FILE
 cat $FILE
 echo "Install docker and run compose"
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
