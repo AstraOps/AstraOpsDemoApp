@@ -4,8 +4,8 @@ metabase:
    ports:
      - "3000:3000"
    environment:
-      - DB_HOST: $HOST
-      - DB_PORT: $PORT  # Replace with your RDS port
-      - DB_USER: $USER
-      - DB_PASSWORD: $PASSWORD
-      - DB_NAME: $DBNAME
+      MB_DB_HOST: $HOST
+      MB_DB_PORT: $PORT  # Replace with your RDS port
+      MB_DB_USER: $USER
+      MB_DB_PASSWORD: $PASSWORD
+      MB_DB_NAME: $DBNAME
