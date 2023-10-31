@@ -84,7 +84,7 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 apt-get install lsof
 
 docker-compose up -d
-# lsof -i:3000
+lsof -i:3000
 
 #Not used
 NGINX_PATH="/usr/share/nginx/html/" 
