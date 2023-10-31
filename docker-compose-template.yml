@@ -1,4 +1,5 @@
-container_name: metabase
+metabase:
+   container_name: metabase
    image: metabase/metabase:latest
    ports:
      - "3000:3000"
