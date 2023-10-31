@@ -87,7 +87,7 @@ docker-compose up -d
 # lsof -i:3000
 
 #Not used
-NGINX_PATH="/usr/share/nginx/html/ 
+NGINX_PATH="/usr/share/nginx/html/" 
 
 echo "Checking Nginx configuration"
 ls -altr /etc/nginx/
