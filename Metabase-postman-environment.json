@@ -1,0 +1,51 @@
+{
+	"id": "1165f5e7-7203-416a-8cea-75bcedb53947",
+	"name": "Metabase",
+	"values": [
+		{
+			"key": "URL",
+			"value": "http://3.208.61.26:3000/api",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "HOST",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PORT",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "DBNAME",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "USERNAME",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PASSWORD",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-11-01T14:04:01.014Z",
+	"_postman_exported_using": "Postman/10.19.14"
+}

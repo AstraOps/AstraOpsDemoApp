@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "0ec252b1-cc3b-488e-bf5d-22153afc49fe",
+		"name": "Metabase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29343914"
+	},
+	"item": [
+		{
+			"name": "Get setup-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"TOKEN\", jsonData['setup-token']);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/session/properties",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"session",
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creating admin account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{TOKEN}}\",\n    \"user\": {\n        \"password_confirm\": \"admin@123\",\n        \"password\": \"admin@123\",\n        \"site_name\": \"astraops\",\n        \"email\": \"admin@gmail.com\",\n        \"last_name\": \"user\",\n        \"first_name\": \"Admin\"\n    },\n    \"database\": {\n        \"is_on_demand\": false,\n        \"is_full_sync\": true,\n        \"is_sample\": false,\n        \"cache_ttl\": null,\n        \"refingerprint\": false,\n        \"auto_run_queries\": true,\n        \"schedules\": {},\n        \"details\": {\n            \"host\": \"{{HOST}}\",\n            \"port\": \"{{PORT}}\",\n            \"dbname\": \"{{DBNAME}}\",\n            \"user\": \"{{USERNAME}}\",\n            \"password\": \"{{PASSWORD}}\",\n            \"schema-filters-type\": \"all\",\n            \"ssl\": true,\n            \"tunnel-enabled\": false,\n            \"advanced-options\": false\n        },\n        \"name\": \"Demo database\",\n        \"engine\": \"postgres\"\n    },\n    \"prefs\": {\n        \"site_name\": \"astraops\",\n        \"site_locale\": \"en\",\n        \"allow_tracking\": \"true\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/setup/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"setup",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
