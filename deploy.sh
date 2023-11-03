@@ -68,11 +68,11 @@ cp docker-compose-template.yml docker-compose.yml
 FILE="Metabase.postman_environment.json"
 cp "$FILE.template" $FILE
 echo "Updating postman environment file"
-sed -i -E 's/\$HOST/'\"$HOST\"'/g' $FILE
-sed -i -E 's/\$PORT/'\"$PORT\"'/g' $FILE
-sed -i -E 's/\$USER/'\"$USER\"'/g' $FILE
-sed -i -E 's/\$PASSWORD/'\"$PASSWD\"'/g' $FILE
-sed -i -E 's/\$DBNAME/'\"$DB\"'/g' $FILE
+sed -i "s/\$HOST/$HOST/g" $FILE
+sed -i "s/\$PORT/$PORT/g" $FILE
+sed -i "s/\$USER/$USER/g" $FILE
+sed -i "s/\$PASSWORD/$PASSWD/g" $FILE
+sed -i "s/\$DBNAME/$DB/g" $FILE
 echo "Updated postman environment file"
 cat  $FILE
 echo "Complete.."
@@ -106,7 +106,7 @@ cd ~
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
 apt-get -y install nodejs npm
 npm install newman -g
-newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
+newman run ./AstraOpsDemoApp/Metabase.postman_collection.json -e ./AstraOpsDemoApp/Metabase.postman_environment.json
   
 #Not used
 NGINX_PATH="/usr/share/nginx/html/" 
