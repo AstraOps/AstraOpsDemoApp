@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "0ec252b1-cc3b-488e-bf5d-22153afc49fe",
+		"_postman_id": "27525389-5b0a-407f-89c2-a651d130ca36",
 		"name": "Metabase",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29343914"
+		"_exporter_id": "86170",
+		"_collection_link": "https://lively-star-226598.postman.co/workspace/Pirai~9116951c-1e6d-484b-8c53-b810516237c5/collection/86170-27525389-5b0a-407f-89c2-a651d130ca36?action=share&source=collection_link&creator=86170"
 	},
 	"item": [
 		{
@@ -14,7 +15,8 @@
 					"script": {
 						"exec": [
 							"var jsonData = pm.response.json();",
-							"pm.environment.set(\"TOKEN\", jsonData['setup-token']);"
+							"pm.environment.set(\"TOKEN\", jsonData['setup-token']);",
+							"pm.setNextRequest(\"CreateAdminAccount\")"
 						],
 						"type": "text/javascript"
 					}
@@ -37,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "Creating admin account",
+			"name": "CreateAdminAccount",
 			"request": {
 				"method": "POST",
 				"header": [],

@@ -60,17 +60,24 @@ echo "Created the database $DB .."
 echo "Listing Databases after creation.."
 psql -h $HOST -p $PORT -U $USER -w -lq
 #echo "Creating necessary tables from SQL Dump to $DB.."
-#psql -h $HOST -p $PORT -U $USER -w $DB -f DB__to_do_list.sql 
+psql -h $HOST -p $PORT -U $USER -w $DB -f world.sql 
+pg_restore -u $USER -d $DB pagila.tar
 
 
-FILE="docker-compose.yml"
-cp docker-compose-template.yml $FILE
+cp docker-compose-template.yml docker-compose.yml
+FILE="Metabase.postman_environment.json"
+cp "$FILE-template.json.template" $FILE
+echo "Updating postman environment file"
 sed -i -E 's/\$HOST/'\"$HOST\"'/g' $FILE
 sed -i -E 's/\$PORT/'\"$PORT\"'/g' $FILE
 sed -i -E 's/\$USER/'\"$USER\"'/g' $FILE
 sed -i -E 's/\$PASSWORD/'\"$PASSWD\"'/g' $FILE
 sed -i -E 's/\$DBNAME/'\"$DB\"'/g' $FILE
-cat $FILE
+echo "Updated postman environment file"
+cat  $FILE
+echo "Complete.."
+
+
 echo "Install docker and run compose"
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
 # Add Docker's official GPG key:
