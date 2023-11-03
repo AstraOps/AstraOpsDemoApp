@@ -9,6 +9,7 @@ DB=$5
 ASTRAOPSUSER=$6
 ASTRAOPSPROJECT=$7
 NGINX_VERSION=$8
+# ENDPOINT_URL=$9
 
 echo "HOST = $HOST"
 echo "H = $H"
@@ -19,6 +20,7 @@ echo "DB = $DB"
 echo "ASTRAOPSUSER = $ASTRAOPSUSER"
 echo "ASTRAOPSPROJECT = $ASTRAOPSPROJECT"
 echo "NGINX_VERSION = $NGINX_VERSION"
+# echo "ENDPOINT_URL = $ENDPOINT_URL"
 
 echo "Configuring /etc/hosts file"
 cat /etc/hosts
@@ -73,6 +75,7 @@ sed -i "s/\$PORT/$PORT/g" $FILE
 sed -i "s/\$USER/$USER/g" $FILE
 sed -i "s/\$PASSWORD/$PASSWD/g" $FILE
 sed -i "s/\$DBNAME/$DB/g" $FILE
+# sed -i "s/\$ENDPOINT_URL/$ENDPOINT_URL/g" $FILE
 echo "Updated postman environment file"
 cat  $FILE
 echo "Complete.."
@@ -106,6 +109,9 @@ cd ~
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
 apt-get -y install nodejs npm
 npm install newman -g
+curl http://34.225.20.21:3000/api/session/properties >> output.json
+SETUP_TOKEN=`cat output.json | jq '.' | grep -i setup-token|cut -d "\"" -f4`
+sed -i "s/\$TOKEN/$SETUP_TOKEN/g" $FILE
 newman run ./AstraOpsDemoApp/Metabase.postman_collection.json -e ./AstraOpsDemoApp/Metabase.postman_environment.json
   
 #Not used

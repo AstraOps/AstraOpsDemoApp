@@ -22,4 +22,4 @@ chmod +x deploy.sh
 # ASTRAOPSUSER=$6
 # ASTRAOPSPROJECT=$7
 # NGINX_VERSION=$8
-./deploy.sh $host $port $masterusername $masterpassword $dbname $astraopsuser $astraopsproject $nginxversion
+./deploy.sh $host $port $masterusername $masterpassword $dbname $astraopsuser $astraopsproject $nginxversion $endpoint_url
