@@ -76,10 +76,6 @@ sed -i "s/\$USER/$USER/g" $FILE
 sed -i "s/\$PASSWORD/$PASSWD/g" $FILE
 sed -i "s/\$DBNAME/$DB/g" $FILE
 # sed -i "s/\$ENDPOINT_URL/$ENDPOINT_URL/g" $FILE
-echo "Updated postman environment file"
-cat  $FILE
-echo "Complete.."
-
 
 echo "Install docker and run compose"
 rm -f /etc/apt/keyrings/docker.gpg
@@ -105,13 +101,17 @@ docker-compose up -d
 lsof -i:3000
 
 #Install newman, and deploy postman collections
-cd ~
+rm -f output.json
+cd ~/AstraOpsDemoApp/
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
 apt-get -y install nodejs npm
 npm install newman -g
-curl http://34.225.20.21:3000/api/session/properties >> output.json
+curl http://34.225.20.21:3000/api/session/properties > output.json
 SETUP_TOKEN=`cat output.json | jq '.' | grep -i setup-token|cut -d "\"" -f4`
 sed -i "s/\$TOKEN/$SETUP_TOKEN/g" $FILE
+echo "Updated postman environment file"
+cat  $FILE
+echo "Complete.."
 newman run ./AstraOpsDemoApp/Metabase.postman_collection.json -e ./AstraOpsDemoApp/Metabase.postman_environment.json
   
 #Not used
