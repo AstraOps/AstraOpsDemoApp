@@ -1,7 +1,6 @@
 #!/bin/bash 
 set -x
-HOST=db.astraops.com
-H=$1
+HOST=$1
 PORT=$2
 USER=$3
 PASSWD=$4
@@ -9,10 +8,8 @@ DB=$5
 ASTRAOPSUSER=$6
 ASTRAOPSPROJECT=$7
 NGINX_VERSION=$8
-# ENDPOINT_URL=$9
 
 echo "HOST = $HOST"
-echo "H = $H"
 echo "PORT = $PORT"
 echo "USER = $USER"
 echo "PASSWD = $PASSWD"
@@ -20,12 +17,6 @@ echo "DB = $DB"
 echo "ASTRAOPSUSER = $ASTRAOPSUSER"
 echo "ASTRAOPSPROJECT = $ASTRAOPSPROJECT"
 echo "NGINX_VERSION = $NGINX_VERSION"
-# echo "ENDPOINT_URL = $ENDPOINT_URL"
-
-echo "Configuring /etc/hosts file"
-cat /etc/hosts
-echo "$1 $HOST" >> /etc/hosts
-cat /etc/hosts
 
 apt install -y postgresql-client postgresql-client-common
 apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring
@@ -75,7 +66,6 @@ sed -i "s/\$PORT/$PORT/g" $FILE
 sed -i "s/\$USER/$USER/g" $FILE
 sed -i "s/\$PASSWORD/$PASSWD/g" $FILE
 sed -i "s/\$DBNAME/$DB/g" $FILE
-# sed -i "s/\$ENDPOINT_URL/$ENDPOINT_URL/g" $FILE
 
 echo "Install docker and run compose"
 rm -f /etc/apt/keyrings/docker.gpg
@@ -101,17 +91,10 @@ docker-compose up -d
 lsof -i:3000
 
 #Install newman, and deploy postman collections
-rm -f output.json
 cd ~/AstraOpsDemoApp/
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
 apt-get -y install nodejs npm
 npm install newman -g
-curl http://34.225.20.21:3000/api/session/properties > output.json
-SETUP_TOKEN=`cat output.json | jq '.' | grep -i setup-token|cut -d "\"" -f4`
-sed -i "s/\$TOKEN/$SETUP_TOKEN/g" $FILE
-echo "Updated postman environment file"
-cat  $FILE
-echo "Complete.."
 newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
   
 #Not used

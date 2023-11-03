@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1a0c411b-664f-4f2e-9cf2-7c317d43a484",
+		"_postman_id": "7061b0c3-e0da-4290-a694-beca1421e14b",
 		"name": "Metabase",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "86170",
-		"_collection_link": "https://lively-star-226598.postman.co/workspace/Pirai~9116951c-1e6d-484b-8c53-b810516237c5/collection/86170-1a0c411b-664f-4f2e-9cf2-7c317d43a484?action=share&source=collection_link&creator=86170"
+		"_exporter_id": "29343914"
 	},
 	"item": [
 		{
@@ -16,7 +15,7 @@
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.environment.set(\"TOKEN\", jsonData['setup-token']);",
-							"pm.setNextRequest(\"CreateAdminAccount\")"
+							"postman.setNextRequest(\"CreateAdminAccount\")"
 						],
 						"type": "text/javascript"
 					}
