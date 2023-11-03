@@ -100,6 +100,11 @@ apt-get install lsof
 docker-compose up -d
 lsof -i:3000
 
+#Install newman, and deploy postman collections
+apt-get -y install nodejs
+npm install newman -g
+newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
+  
 #Not used
 NGINX_PATH="/usr/share/nginx/html/" 
 
