@@ -91,10 +91,18 @@ docker-compose up -d
 lsof -i:3000
 
 #Install newman, and deploy postman collections
-cd ~/AstraOpsDemoApp/
-curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
-apt-get -y install nodejs npm
+
+# curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
+# apt-get -y install nodejs npm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm -v
+nvm install node
+
 npm install newman -g
+cd ~/AstraOpsDemoApp/
 newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
   
 #Not used
