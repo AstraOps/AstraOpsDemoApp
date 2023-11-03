@@ -112,7 +112,7 @@ sed -i "s/\$TOKEN/$SETUP_TOKEN/g" $FILE
 echo "Updated postman environment file"
 cat  $FILE
 echo "Complete.."
-newman run ./AstraOpsDemoApp/Metabase.postman_collection.json -e ./AstraOpsDemoApp/Metabase.postman_environment.json
+newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
   
 #Not used
 NGINX_PATH="/usr/share/nginx/html/" 
