@@ -66,7 +66,7 @@ pg_restore -u $USER -d $DB pagila.tar
 
 cp docker-compose-template.yml docker-compose.yml
 FILE="Metabase.postman_environment.json"
-cp "$FILE-template.json.template" $FILE
+cp "$FILE.template" $FILE
 echo "Updating postman environment file"
 sed -i -E 's/\$HOST/'\"$HOST\"'/g' $FILE
 sed -i -E 's/\$PORT/'\"$PORT\"'/g' $FILE
@@ -79,9 +79,10 @@ echo "Complete.."
 
 
 echo "Install docker and run compose"
-for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
+rm -f /etc/apt/keyrings/docker.gpg
+for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove -y $pkg; done
 # Add Docker's official GPG key:
-apt-get update
+apt-get update -y
 apt-get install ca-certificates curl gnupg
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -101,6 +102,8 @@ docker-compose up -d
 lsof -i:3000
 
 #Install newman, and deploy postman collections
+cd ~
+curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
 apt-get -y install nodejs npm
 npm install newman -g
 newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
