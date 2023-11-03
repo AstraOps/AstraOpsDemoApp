@@ -1,12 +1,43 @@
 {
 	"info": {
-		"_postman_id": "27525389-5b0a-407f-89c2-a651d130ca36",
+		"_postman_id": "1a0c411b-664f-4f2e-9cf2-7c317d43a484",
 		"name": "Metabase",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "86170",
-		"_collection_link": "https://lively-star-226598.postman.co/workspace/Pirai~9116951c-1e6d-484b-8c53-b810516237c5/collection/86170-27525389-5b0a-407f-89c2-a651d130ca36?action=share&source=collection_link&creator=86170"
+		"_collection_link": "https://lively-star-226598.postman.co/workspace/Pirai~9116951c-1e6d-484b-8c53-b810516237c5/collection/86170-1a0c411b-664f-4f2e-9cf2-7c317d43a484?action=share&source=collection_link&creator=86170"
 	},
 	"item": [
+		{
+			"name": "Get setup-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"TOKEN\", jsonData['setup-token']);",
+							"pm.setNextRequest(\"CreateAdminAccount\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/session/properties",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"session",
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "CreateAdminAccount",
 			"request": {
