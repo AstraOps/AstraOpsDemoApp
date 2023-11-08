@@ -13,7 +13,11 @@ DB_PORT=${args[1]}
 DB_USER=${args[2]}
 DB_PASSWORD=${args[3]}
 DB_NAME=${args[4]}
-echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME"
+USER_EMAIL=${args[5]}
+FIRST_NAME=${args[6]}
+LAST_NAME=${args[7]}
+
+echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME"
 
 echo "Starting the setup process"
 echo "Starting Metabase through docker"
@@ -53,7 +57,12 @@ echo "Updating postman environment file"
 sed -i "s/\$HOST/$DB_HOST/g" $PM_ENV_FILE
 sed -i "s/\$PORT/$DB_PORT/g" $PM_ENV_FILE
 sed -i "s/\$USER/$DB_USER/g" $PM_ENV_FILE
-sed -i "s/\$PASSWORD/$DB_PASSWD/g" $PM_ENV_FILE
+sed -i "s/\$PASSWORD/$DB_PASSWORD/g" $PM_ENV_FILE
 sed -i "s/\$DBNAME/$DB_NAME/g" $PM_ENV_FILE
+sed -i "s/\$FIRST_NAME/$FIRST_NAME/g" $PM_ENV_FILE
+sed -i "s/\$LAST_NAME/$LAST_NAME/g" $PM_ENV_FILE
+sed -i "s/\$USER_EMAIL/$USER_EMAIL/g" $PM_ENV_FILE
+
 newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
+rm $PM_ENV_FILE
 exit 0

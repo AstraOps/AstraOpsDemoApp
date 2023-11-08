@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "7061b0c3-e0da-4290-a694-beca1421e14b",
+		"_postman_id": "1a0c411b-664f-4f2e-9cf2-7c317d43a484",
 		"name": "Metabase",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29343914"
+		"_exporter_id": "86170",
+		"_collection_link": "https://lively-star-226598.postman.co/workspace/Pirai~9116951c-1e6d-484b-8c53-b810516237c5/collection/86170-1a0c411b-664f-4f2e-9cf2-7c317d43a484?action=share&source=collection_link&creator=86170"
 	},
 	"item": [
 		{
@@ -44,7 +45,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"token\": \"{{TOKEN}}\",\n    \"user\": {\n        \"password_confirm\": \"admin@123\",\n        \"password\": \"admin@123\",\n        \"site_name\": \"astraops\",\n        \"email\": \"admin@gmail.com\",\n        \"last_name\": \"user\",\n        \"first_name\": \"Admin\"\n    },\n    \"database\": {\n        \"is_on_demand\": false,\n        \"is_full_sync\": true,\n        \"is_sample\": false,\n        \"cache_ttl\": null,\n        \"refingerprint\": false,\n        \"auto_run_queries\": true,\n        \"schedules\": {},\n        \"details\": {\n            \"host\": \"{{HOST}}\",\n            \"port\": \"{{PORT}}\",\n            \"dbname\": \"{{DBNAME}}\",\n            \"user\": \"{{USERNAME}}\",\n            \"password\": \"{{PASSWORD}}\",\n            \"schema-filters-type\": \"all\",\n            \"ssl\": true,\n            \"tunnel-enabled\": false,\n            \"advanced-options\": false\n        },\n        \"name\": \"Demo database\",\n        \"engine\": \"postgres\"\n    },\n    \"prefs\": {\n        \"site_name\": \"astraops\",\n        \"site_locale\": \"en\",\n        \"allow_tracking\": \"true\"\n    }\n}",
+					"raw": "{\n    \"token\": \"{{TOKEN}}\",\n    \"user\": {\n        \"password_confirm\": \"admin@123\",\n        \"password\": \"admin@123\",\n        \"site_name\": \"AstraOps\",\n        \"email\": \"{{USER_EMAIL}}\",\n        \"last_name\": \"{{LAST_NAME}}\",\n        \"first_name\": \"{{FIRST_NAME}}\"\n    },\n    \"database\": {\n        \"is_on_demand\": false,\n        \"is_full_sync\": true,\n        \"is_sample\": false,\n        \"cache_ttl\": null,\n        \"refingerprint\": false,\n        \"auto_run_queries\": true,\n        \"schedules\": {},\n        \"details\": {\n            \"host\": \"{{HOST}}\",\n            \"port\": \"{{PORT}}\",\n            \"dbname\": \"{{DBNAME}}\",\n            \"user\": \"{{USERNAME}}\",\n            \"password\": \"{{PASSWORD}}\",\n            \"schema-filters-type\": \"all\",\n            \"ssl\": true,\n            \"tunnel-enabled\": false,\n            \"advanced-options\": false\n        },\n        \"name\": \"Demo database\",\n        \"engine\": \"postgres\"\n    },\n    \"prefs\": {\n        \"site_name\": \"astraops\",\n        \"site_locale\": \"en\",\n        \"allow_tracking\": \"true\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
