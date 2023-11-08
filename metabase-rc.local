@@ -17,8 +17,9 @@ DB_NAME=${args[4]}
 USER_EMAIL=${args[5]}
 FIRST_NAME=${args[6]}
 LAST_NAME=${args[7]}
+PROJECT_NAME=${args[8]}
 
-echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME"
+echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME, PROJECT NAME = $PROJECT_NAME"
 
 echo "Starting the setup process"
 echo "Starting Metabase through docker"
@@ -63,6 +64,8 @@ sed -i "s/\$DBNAME/$DB_NAME/g" $PM_ENV_FILE
 sed -i "s/\$FIRST_NAME/$FIRST_NAME/g" $PM_ENV_FILE
 sed -i "s/\$LAST_NAME/$LAST_NAME/g" $PM_ENV_FILE
 sed -i "s/\$EMAIL_ID/$USER_EMAIL/g" $PM_ENV_FILE
+sed -i "s/\$PROJECT_NAME/$PROJECT_NAME/g" $PM_ENV_FILE
+
 
 ./$PM_CMD_PATH run Metabase.postman_collection.json -e $PM_ENV_FILE --verbose
 exit 0
