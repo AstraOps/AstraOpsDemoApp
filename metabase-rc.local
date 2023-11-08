@@ -1,4 +1,5 @@
 #!/bin/env bash
+PM_CMD_PATH="node_modules/newman/bin/newman.js"
 cd /opt/data
 echo "Executing the bash script : /etc/rc.local"
 echo "Getting User Data (Assuming: DB_HOST DB_PORT DB_USERNAME DB_PASSWORD DB_NAME"
@@ -61,8 +62,7 @@ sed -i "s/\$PASSWORD/$DB_PASSWORD/g" $PM_ENV_FILE
 sed -i "s/\$DBNAME/$DB_NAME/g" $PM_ENV_FILE
 sed -i "s/\$FIRST_NAME/$FIRST_NAME/g" $PM_ENV_FILE
 sed -i "s/\$LAST_NAME/$LAST_NAME/g" $PM_ENV_FILE
-sed -i "s/\$USER_EMAIL/$USER_EMAIL/g" $PM_ENV_FILE
+sed -i "s/\$EMAIL_ID/$USER_EMAIL/g" $PM_ENV_FILE
 
-newman run Metabase.postman_collection.json -e Metabase.postman_environment.json
-rm $PM_ENV_FILE
+./$PM_CMD_PATH run Metabase.postman_collection.json -e $PM_ENV_FILE --verbose
 exit 0
