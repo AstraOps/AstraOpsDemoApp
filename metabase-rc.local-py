@@ -55,16 +55,20 @@ MB_API_FILE="metabase_api.py"
 test -f $MB_API_FILE && rm $MB_API_FILE
 cp "$MB_API_FILE-template" $MB_API_FILE
 chmod +x $MB_API_FILE
-echo "Updating postman environment file"
-sed -i "s/\$HOST/$DB_HOST/g" $MB_API_FILE
-sed -i "s/\$PORT/$DB_PORT/g" $MB_API_FILE
-sed -i "s/\$USER/$DB_USER/g" $MB_API_FILE
-sed -i "s/\$PASSWORD/$DB_PASSWORD/g" $MB_API_FILE
-sed -i "s/\$DBNAME/$DB_NAME/g" $MB_API_FILE
-sed -i "s/\$FIRST_NAME/$FIRST_NAME/g" $MB_API_FILE
-sed -i "s/\$LAST_NAME/$LAST_NAME/g" $MB_API_FILE
-sed -i "s/\$EMAIL_ID/$USER_EMAIL/g" $MB_API_FILE
-sed -i "s/\$PROJECT_NAME/$PROJECT_NAME/g" $MB_API_FILE
+echo "Updating Metabase parameters like DB Hostm, Port, Database, etc"
+sed -i "s/{{DB_HOST}}/$DB_HOST/g" $MB_API_FILE
+sed -i "s/{{DB_PORT}}/$DB_PORT/g" $MB_API_FILE
+sed -i "s/{{DB_USER}}/$DB_USER/g" $MB_API_FILE
+sed -i "s/{{DB_PASSWORD}}/$DB_PASSWORD/g" $MB_API_FILE
+sed -i "s/{{DB_NAME}}/$DB_NAME/g" $MB_API_FILE
+sed -i "s/{{FIRST_NAME}}/$FIRST_NAME/g" $MB_API_FILE
+sed -i "s/{{LAST_NAME}}/$LAST_NAME/g" $MB_API_FILE
+sed -i "s/{{EMAIL_ID}}/$USER_EMAIL/g" $MB_API_FILE
+sed -i "s/{{PROJECT_NAME}}/$PROJECT_NAME/g" $MB_API_FILE
+echo "Updated the parameters, printing the file"
+echo "START - $MB_API_FILE"
+cat $MB_API_FILE
+echo "END - $MB_API_FILE"
 ./$MB_API_FILE
 
 exit 0

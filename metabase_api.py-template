@@ -1,19 +1,20 @@
 #!/bin/env python3
 
-import http.client
+import requests
 import json
 
-conn = http.client.HTTPSConnection("{{URL}}")
-payload = ''
+url = "http://localhost:3000/api/session/properties"
+payload = {}
 headers = {}
-conn.request("GET", "/session/properties", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
-json_data=json.dumps(data.decode("utf-8"))
-token=json_data.get("setup-token")
 
-conn = http.client.HTTPSConnection("{{URL}}")
+response = requests.request("GET", url, headers=headers, data=payload)
+
+token=response.json["setup-token"]
+print("Token =  %s" % (token))
+
+
+url = "http://localhost:3000/api/setup/"
+
 payload = json.dumps({
   "user": {
     "password_confirm": "admin@123",
@@ -32,11 +33,11 @@ payload = json.dumps({
     "auto_run_queries": True,
     "schedules": {},
     "details": {
-      "host": "{{HOST}}",
-      "port": "{{PORT}}",
-      "dbname": "{{DBNAME}}",
-      "user": "{{USERNAME}}",
-      "password": "{{PASSWORD}}",
+      "host": "{{DB_HOST}}",
+      "port": "{{DB_PORT}}",
+      "dbname": "{{DB_NAME}}",
+      "user": "{{DB_USER}}",
+      "password": "{{DB_PASSWORD}}",
       "schema-filters-type": "all",
       "ssl": True,
       "tunnel-enabled": False,
@@ -55,7 +56,7 @@ headers = {
   'Content-Type': 'application/json'
 }
 payload["token"]=token
-conn.request("POST", "/setup/", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.json)
