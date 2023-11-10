@@ -1,0 +1,61 @@
+#!/bin/env python3
+
+import http.client
+import json
+
+conn = http.client.HTTPSConnection("{{URL}}")
+payload = ''
+headers = {}
+conn.request("GET", "/session/properties", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+json_data=json.dumps(data.decode("utf-8"))
+token=json_data.get("setup-token")
+
+conn = http.client.HTTPSConnection("{{URL}}")
+payload = json.dumps({
+  "user": {
+    "password_confirm": "admin@123",
+    "password": "admin@123",
+    "site_name": "{{PROJECT_NAME}}",
+    "email": "{{USER_EMAIL}}",
+    "last_name": "{{LAST_NAME}}",
+    "first_name": "{{FIRST_NAME}}"
+  },
+  "database": {
+    "is_on_demand": False,
+    "is_full_sync": True,
+    "is_sample": False,
+    "cache_ttl": None,
+    "refingerprint": False,
+    "auto_run_queries": True,
+    "schedules": {},
+    "details": {
+      "host": "{{HOST}}",
+      "port": "{{PORT}}",
+      "dbname": "{{DBNAME}}",
+      "user": "{{USERNAME}}",
+      "password": "{{PASSWORD}}",
+      "schema-filters-type": "all",
+      "ssl": True,
+      "tunnel-enabled": False,
+      "advanced-options": False
+    },
+    "name": "{{PROJECT_NAME}}",
+    "engine": "postgres"
+  },
+  "prefs": {
+    "site_name": "{{PROJECT_NAME}}",
+    "site_locale": "en",
+    "allow_tracking": "true"
+  }
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+payload["token"]=token
+conn.request("POST", "/setup/", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))

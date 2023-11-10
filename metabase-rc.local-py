@@ -1,0 +1,70 @@
+#!/bin/env bash
+cd /opt/data
+echo "Executing the bash script : /etc/rc.local"
+echo "Getting User Data Assuming: DB_HOST DB_PORT DB_USERNAME DB_PASSWORD DB_NAME"
+userdata=`curl http://169.254.169.254/latest/user-data`
+echo "USER DATA -- START"
+echo $userdata
+echo "USER DATA -- END"
+echo "Parsing User data Arguments:"
+read -ra args <<<"$userdata"
+DB_HOST=${args[0]}
+DB_PORT=${args[1]}
+DB_USER=${args[2]}
+DB_PASSWORD=${args[3]}
+DB_NAME=${args[4]}
+USER_EMAIL=${args[5]}
+FIRST_NAME=${args[6]}
+LAST_NAME=${args[7]}
+PROJECT_NAME=${args[8]}
+
+echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME, PROJECT NAME = $PROJECT_NAME"
+
+echo "Starting the setup process"
+echo "Starting Metabase through docker"
+docker-compose up -d
+echo "Checking whether Metabase is listening, listing containers, lsof -i:3000"
+docker ps
+lsof -i:3000
+
+echo "Starting nginx and checking its status"
+systemctl start nginx
+systemctl status nginx
+
+export PGPASSWORD=$DB_PASSWORD
+echo "Listing Available Databases.."
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -w -lq
+
+if psql -h $DB_HOST -p $DB_PORT -U $DB_USER -w -lqt | cut -d \| -f 1 | grep -qw $DB_NAME; then
+    # $? is 0, Database Exists
+    echo "Database \"$DB_NAME\" already exists,dropping the database"
+    dropdb -h $DB_HOST -p $DB_PORT -U $DB_USER -w $DB_NAME
+    echo "Database \"$DB_NAME\" dropped"
+    echo "#########################################"
+fi
+echo "Creating the database $DB_NAME .."
+createdb -h $DB_HOST -p $DB_PORT -U $DB_USER -w $DB_NAME
+echo "Created the database $DB_NAME .."
+echo "Listing Databases after creation.."
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -w -lq
+echo "Creating necessary tables from SQL Dump to $DB_HOST.."
+pg_restore -h $DB_HOST -p $DB_PORT -U $DB_USER -w -d $DB_NAME  pagila.tar
+#psql -h $DB_HOST -p $DB_PORT -U $DB_USER -w $DB_NAME -f world.sql
+
+MB_API_FILE="metabase_api.py"
+test -f $MB_API_FILE && rm $MB_API_FILE
+cp "$MB_API_FILE-template" $MB_API_FILE
+chmod +x $MB_API_FILE
+echo "Updating postman environment file"
+sed -i "s/\$HOST/$DB_HOST/g" $MB_API_FILE
+sed -i "s/\$PORT/$DB_PORT/g" $MB_API_FILE
+sed -i "s/\$USER/$DB_USER/g" $MB_API_FILE
+sed -i "s/\$PASSWORD/$DB_PASSWORD/g" $MB_API_FILE
+sed -i "s/\$DBNAME/$DB_NAME/g" $MB_API_FILE
+sed -i "s/\$FIRST_NAME/$FIRST_NAME/g" $MB_API_FILE
+sed -i "s/\$LAST_NAME/$LAST_NAME/g" $MB_API_FILE
+sed -i "s/\$EMAIL_ID/$USER_EMAIL/g" $MB_API_FILE
+sed -i "s/\$PROJECT_NAME/$PROJECT_NAME/g" $MB_API_FILE
+./$MB_API_FILE
+
+exit 0
