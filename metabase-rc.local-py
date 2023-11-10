@@ -17,8 +17,10 @@ USER_EMAIL=${args[5]}
 FIRST_NAME=${args[6]}
 LAST_NAME=${args[7]}
 PROJECT_NAME=${args[8]}
+NGINX_VERSION=${args[9]}
+SLEEP_TIMER=${args[10]}
 
-echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME, PROJECT NAME = $PROJECT_NAME"
+echo "DB HOST: $DB_HOST,  DB PORT: $DB_PORT, DB USERNAME: $DB_USER, DB PASSWORD: $DB_PASSWORD, DB NAME: $DB_NAME, USER EMAIL: $USER_EMAIL, FIRST NAME: $FIRST_NAME, LAST NAME: $LAST_NAME, PROJECT NAME = $PROJECT_NAME NGINX Versiob: $NGINX_VERSION, SLEEP TIMER: $SLEEP_TIMER secs"
 
 echo "Starting the setup process"
 echo "Starting Metabase through docker"
@@ -69,6 +71,12 @@ echo "Updated the parameters, printing the file"
 echo "START - $MB_API_FILE"
 cat $MB_API_FILE
 echo "END - $MB_API_FILE"
+
+[  ! -z "$SLEEP_TIMER" -a "$SLEEP_TIMER"!=" " ] || SLEEP_TIMER=120
+echo "Sleeping for $SLEEP_TIMER secs, before calling MetaBase APIs"
+sleep $SLEEP_TIMER
+
+
 ./$MB_API_FILE
 
 exit 0
