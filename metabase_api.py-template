@@ -6,21 +6,22 @@ import json
 url = "http://localhost:3000/api/session/properties"
 payload = {}
 headers = {}
-
+print("Calling API %s" % (url))
 response = requests.request("GET", url, headers=headers, data=payload)
-
-token=response.json["setup-token"]
+print("Response: ")
+print(response)
+token=response.json()["setup-token"]
 print("Token =  %s" % (token))
 
 
 url = "http://localhost:3000/api/setup/"
 
-payload = json.dumps({
+payload = {
   "user": {
     "password_confirm": "admin@123",
     "password": "admin@123",
     "site_name": "{{PROJECT_NAME}}",
-    "email": "{{USER_EMAIL}}",
+    "email": "{{EMAIL_ID}}",
     "last_name": "{{LAST_NAME}}",
     "first_name": "{{FIRST_NAME}}"
   },
@@ -51,12 +52,13 @@ payload = json.dumps({
     "site_locale": "en",
     "allow_tracking": "true"
   }
-})
+}
 headers = {
   'Content-Type': 'application/json'
 }
 payload["token"]=token
-
-response = requests.request("POST", url, headers=headers, data=payload)
-
-print(response.json)
+print("Calling API %s with payload" % (url))
+print(payload)
+response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+print("Response: ")
+print(response.text)
